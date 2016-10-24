@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<head>
+	<script>
+		this.value = 0;
+		var myObject = {
+			value: 0,
+			increment: function (inc) {
+				this.value += typeof inc === 'number' ? inc : 1;
+			}
+		};
+		myObject.increment( ); 
+		document.writeln(myObject.value+'<br>');
+		myObject.increment(2);
+		document.writeln(myObject.value+'<br>');
+		// 1 // 3
+		myObject.double = function () {
+			var that = this; // Workaround.
+			console.log(this.value);
+			var helper = function () {
+				console.log(this.value); //value undefined // if this.value in global , that value printed
+				that.value = that.value+ that.value;
+			};
+			helper(); // Invoke helper as a function. 
+		};
+     	// Invoke double as a method.
+     	myObject.double( ); 
+		document.writeln(myObject.value+'<br>'); // 6
+
+		function go() {
+			var childNodes = document.body.childNodes;
+			var children = document.body.children //skipps text elements
+
+
+			console.log("=============");
+			for(var i=0; i<childNodes.length; i++) {
+				console.log(childNodes[i])
+			}
+			console.log("=============");
+			for(var i=0; i<children.length; i++) {
+				console.log(children[i])
+			}
+		}
+		go();
+
+
+		function counter(tag) {
+			var val=0;
+
+			var inc = function() {
+				val++; 
+				console.log("counter "+tag+" value: "+val);
+			}
+			return inc;
+		}
+		var counter_a = counter("A");
+		var counter_b = counter("B");
+		counter_a();
+		counter_a();
+		counter_b();
+
+	</script>
+
+</head>
+<body>
+	<!-- <h1>Test JavaScript</h1> -->
+	<p></p>
+	
+</body>
+</html>
+
